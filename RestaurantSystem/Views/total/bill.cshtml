@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "bill";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    .container {
+        border: 2px solid;
+        display: flex;
+        background-color: black;
+        justify-content: center;
+        align-items: center;
+        height: 600px;
+    }
+
+    .box {
+        background-color: red;
+        margin: auto;
+    }
+
+    h3 {
+        text-align: center;
+        color: wheat;
+    }
+    a {
+        text-decoration: none;
+        display: inline-block;
+        padding: 8px 16px;
+    }
+
+    a:hover {
+        background-color: #ddd;
+        color: black;
+    }
+
+    .previous {
+        background-color: #f1f1f1;
+        color: black;
+    }
+    
+</style>
+<a href="@Url.Action("Index","Home")" class="previous">&laquo; Previous</a>
+
+<div class="container">
+    <section class="box">
+        <img class="img-responsive"  src="~/Content/images/Cast_and_Create_Restaraunt_Marketing.jpg" height="480" width="480" />
+        <h3>Food Billing</h3>
+        <div class="btn btn-info">
+            <a href="@Url.Action("Add","total")">Click Here</a>
+        </div>
+    </section>
+    <section class="box">
+        <img class="img-responsive"  src="~/Content/images/doonot.jpg"  height="480" width="480" />
+        <h3>Dessert Billing</h3>
+        <div class="btn btn-info">
+            <a href="@Url.Action("Index","Icecream")">Click Here</a>
+        </div>
+    </section>
+</div>
+

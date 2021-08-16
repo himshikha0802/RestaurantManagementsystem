@@ -1,0 +1,72 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MyProjectModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Table_cus">
+    <Key>
+      <PropertyRef Name="CID" />
+    </Key>
+    <Property Name="CID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CustomerName" Type="nvarchar" MaxLength="255" />
+    <Property Name="MenuId" Type="int" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Quantity" Type="int" />
+    <Property Name="Total" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Discount" Type="decimal" Precision="18" Scale="0" />
+  </EntityType>
+  <EntityType Name="Table_food">
+    <Key>
+      <PropertyRef Name="MenuId" />
+    </Key>
+    <Property Name="MenuId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MenuName" Type="nvarchar" MaxLength="255" />
+    <Property Name="Price" Type="decimal" Precision="18" Scale="0" />
+    <Property Name="Image" Type="nvarchar" MaxLength="255" />
+    <Property Name="Status" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Table_new">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="255" />
+    <Property Name="FirstName" Type="nvarchar" MaxLength="255" />
+    <Property Name="LastName" Type="nvarchar" MaxLength="255" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="Password" Type="nvarchar" MaxLength="255" />
+    <Property Name="ConfirmPassword" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <EntityType Name="Table_staff">
+    <Key>
+      <PropertyRef Name="Staff_ID" />
+    </Key>
+    <Property Name="Staff_ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="StaffName" Type="nvarchar" MaxLength="255" />
+    <Property Name="Qualification" Type="nvarchar" MaxLength="255" />
+    <Property Name="Salary" Type="varchar" MaxLength="255" />
+    <Property Name="PhoneNum" Type="nvarchar" MaxLength="255" />
+    <Property Name="Age" Type="int" />
+    <Property Name="Position" Type="nvarchar" MaxLength="255" />
+    <Property Name="Address" Type="nvarchar" MaxLength="255" />
+  </EntityType>
+  <Association Name="FK_Table_cus_Table_food">
+    <End Role="Table_food" Type="Self.Table_food" Multiplicity="0..1" />
+    <End Role="Table_cus" Type="Self.Table_cus" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Table_food">
+        <PropertyRef Name="MenuId" />
+      </Principal>
+      <Dependent Role="Table_cus">
+        <PropertyRef Name="MenuId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MyProjectModelStoreContainer">
+    <EntitySet Name="Table_cus" EntityType="Self.Table_cus" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Table_food" EntityType="Self.Table_food" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Table_new" EntityType="Self.Table_new" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Table_staff" EntityType="Self.Table_staff" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Table_cus_Table_food" Association="Self.FK_Table_cus_Table_food">
+      <End Role="Table_food" EntitySet="Table_food" />
+      <End Role="Table_cus" EntitySet="Table_cus" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

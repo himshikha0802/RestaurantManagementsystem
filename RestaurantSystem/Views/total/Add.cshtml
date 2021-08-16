@@ -1,0 +1,141 @@
+﻿@model RestaurantSystem.Models.Table_cus
+@{
+    ViewBag.Title = "Add";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    a {
+        text-decoration: none;
+        display: inline-block;
+        padding: 8px 16px;
+    }
+
+        a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+    .previous {
+        background-color: #f1f1f1;
+        color: black;
+    }
+
+    .next {
+        background-color: #f1f1f1;
+        color: black;
+    }
+</style>
+<a href="@Url.Action("bill","total")" class="previous">&laquo; Previous</a>
+<span style="float:right;">
+    <a href="@Url.Action("Index","total")" class="next">Next &raquo;</a>
+</span>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <div style="text-align:center;">
+        <h2 style="font-size:30px; font-weight:bold; color: #be412d; display:inline-block;border-bottom:3px solid red;">Adding bill</h2>
+    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CustomerName, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CustomerName, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.MenuId, "Menu", new { htmlAttributes = new { @class = "control-label col-sm-2" } })
+        @*Dropdown code*@
+        <div class="col-md-10">
+            @Html.DropDownList("menuList", null, "Select", htmlAttributes: new { @class = "form-control", @Name = "MenuId", id = "MenuId" })
+            @Html.ValidationMessageFor(model => model.CustomerName, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control", @Name = "Price", @id = "Price", @type = "text" } })
+            @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            @*<input type="text" id="txtUnitPrice"  name="UnitPrice" class="form-control" />*@
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.Quantity, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control", @Name = "Quantity", @id = "txtQuantity", @type = "text" } })
+            @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+            @*<input type="text" id="txtQuantity" name="Quantity" class="form-control" />*@
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Discount, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Discount, new { htmlAttributes = new { @class = "form-control", @Name = "Discount", @id = "txtDiscount", @type = "text" } })
+            @Html.ValidationMessageFor(model => model.Discount, "", new { @class = "text-danger" })
+
+        </div>
+    </div>
+
+
+
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Total, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Total, new { htmlAttributes = new { @class = "form-control", @Name = "Total", @id = "txtTotal" } })
+            @Html.ValidationMessageFor(model => model.Total, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-danger btn-block" />
+        </div>
+    </div>
+</div>
+}
+
+<div class="btn btn-info">
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+
+
+<script>
+    $(document).ready(function () {
+        $('#MenuId').on('change', function () {
+            var selectedVal = $(this).val();  //it is used to take current value
+            //calling Action using ajax
+            $.ajax({
+                dataType: 'json', //jquery bata action call garda always json
+                data: { id: selectedVal },  //passing argument
+                url: "@Url.Action("GetPriceByItemId","Total")",//action to be called
+                success: function (response) {
+                    $("#Price").val(response);  //set response value to some id
+                }
+            });
+        });
+        $("input[type=text]").change(function () {
+            CalculateSubTotal();
+        });
+
+        function CalculateSubTotal() {
+            var Price = $("#Price").val();
+            var Discount = $("#txtDiscount").val();
+            var Quantity = $("#txtQuantity").val();
+            var Total = (Price * Quantity) - Discount;
+            $("#txtTotal").val(parseFloat(Total).toFixed(2));
+        }
+    });
+</script>
+
+
+

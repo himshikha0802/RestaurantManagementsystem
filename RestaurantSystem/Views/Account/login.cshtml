@@ -1,0 +1,114 @@
+﻿@model RestaurantSystem.Models.Table_new
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/login.cshtml";
+}
+<style>
+    body {
+        background-color: #ec5710;
+        font-size: 15px;
+        font-weight: bold;
+    }
+
+    .text {
+        text-decoration: none;
+    }
+    #menu.navbar-default .navbar-nav > li > a {
+        font-size: 25px;
+        font-weight: bold;
+        font-family: monospace;
+    }
+
+    .navbar .navbar-nav {
+        background-color: transparent;
+    }
+
+    .hello{
+        margin:auto;
+        width:50%;
+        border:2px solid white;
+        border-radius:20px;
+        background-color:goldenrod;
+        
+    }
+    #text{
+        font-size:17px;
+        font-weight:bold;
+        color:white;
+      
+    }
+    #text1{
+        font-size:17px;
+        font-weight:bold;
+        color:white;
+     
+    }
+    .acc{
+        color:Highlight;
+    }
+</style>
+}
+<script>
+    function myFunction() {
+        var x = document.getElementById("myInput");
+        if (x.type === "password") {
+            x.type = "text";
+        } else {
+            x.type = "password";
+        }
+    }
+</script>
+
+<br />
+<br />
+<br />
+
+<div style="text-align:center; margin-top:30px;">
+    <img src="~/Content/images/admin.jpg" class="rounded-circle" alt="..." height="200" width="200"/>
+</div>
+<div class="hello">
+    @using (Html.BeginForm("Login", null, FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal  color">
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <br /><br />
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2",@id="text1" })
+                <div class="col-md-6">
+                    @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control", @placeholder = "UserName" } })
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Password, htmlAttributes: new { @class = "control-label col-md-2",@id="text" })
+                <div class="col-md-6" style="color:darkslategrey;">
+                    @Html.EditorFor(model => model.Password, new { htmlAttributes = new { @class = "form-control", @placeholder = "Password", @id = "myInput" } })
+                    @*<input type="password" id="myInput" placeholder="Password"><br><br>*@
+                    <input type="checkbox" onclick="myFunction()">Show Password
+
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+                    @*@Html.ValidationSummary(true, "Login was unsuccessful.Please correct the errors and try again!")*@
+                </div>
+            </div>
+
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Login" class="btn btn-success" />
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10" style="text-decoration:none;">
+                    <span class="acc">Not account ? </span> <a href="@Url.Action("SignUp","Registration")" class="btn btn-success text">Sign Up</a>
+                </div>
+            </div>
+
+        </div>
+    }</div>
+    @Html.Raw(FlashBag.showMessage())

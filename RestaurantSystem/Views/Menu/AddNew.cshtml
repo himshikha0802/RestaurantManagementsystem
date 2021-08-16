@@ -1,0 +1,53 @@
+﻿@model RestaurantSystem.Models.Table_food
+
+@{
+    ViewBag.Title = "AddNew";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    a {
+        text-decoration: none;
+        display: inline-block;
+        padding: 8px 16px;
+    }
+
+        a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+    .previous {
+        background-color: #f1f1f1;
+        color: black;
+    }
+
+    .next {
+        background-color: #f1f1f1;
+        color: black;
+    }
+</style>
+<a href="@Url.Action("Index","Home")" class="previous">&laquo; Previous</a>
+<span style="float:right;">
+    <a href="@Url.Action("Index","Menu")" class="next">Next &raquo;</a>
+</span>
+<div style="text-align:center;">
+    <h2 style="font-size:30px; font-weight:bold; color: #be412d; display:inline-block;border-bottom:3px solid red;">Adding Food</h2>
+</div>
+
+<div class="out">
+    @using (Html.BeginForm("AddNew", null, FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+
+        <div class="form-horizontal">
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            @Html.EditorForModel()
+
+        </div>
+    }
+
+    <div class="btn btn-info">
+        @Html.ActionLink("Back to List", "Index")
+    </div>
+</div>

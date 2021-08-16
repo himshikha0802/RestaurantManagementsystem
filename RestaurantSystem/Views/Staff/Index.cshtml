@@ -1,0 +1,76 @@
+﻿@model IEnumerable<RestaurantSystem.Models.Table_staff>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<p class="btn btn-info">
+    @Html.ActionLink("AddNew", "AddNew")
+</p>
+<div style="text-align:center;">
+    <h2 style="font-size:30px; font-weight:bold; color: #be412d; display:inline-block;border-bottom:3px solid red;">Staff record</h2>
+</div>
+<table class="table table-bordered table-hover">
+    <tr style="background-color:red;">
+        <th>
+            SN
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StaffName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Qualification)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Salary)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Age)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Position)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>Action</th>
+    </tr>
+    @{int sn = 1;}
+    @foreach (var item in Model)
+    {
+        <tr style="background-color:dimgray;">
+            <td>@(sn++)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StaffName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Qualification)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Salary)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PhoneNum)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Age)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Position)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Address)
+            </td>
+            <td>
+                <a href="@Url.Action("Edit",new{id=item.Staff_ID})" class="btn btn-danger">Edit</a>
+                <a href="@Url.Action("Delete",new { id=item.Staff_ID})" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>

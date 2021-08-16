@@ -1,0 +1,192 @@
+﻿
+@{
+    Layout = "~/Views/Shared/style.cshtml";
+}
+<style>
+
+    a {
+        text-decoration: none;
+        display: inline-block;
+        padding: 8px 16px;
+    }
+
+        a:hover {
+            background-color: #ddd;
+            color: black;
+        }
+
+    .previous {
+        background-color: #f1f1f1;
+        color: black;
+    }
+</style>
+<nav class="navbar navbar-dark bg-dark">
+    <span class="navbar-brand md-0 h1" style="font-size:40px;">Dessert</span>
+</nav>
+<a href="@Url.Action("bill","total")" class="previous">&laquo; Previous</a>
+<div class="row">
+    <div class="col-sm-3">
+        <div class="container">
+            <div class="list-group-item list-group-item-action active">Item</div>
+            <div class="panel-body bg-dark " style="color:white; width:30%;">
+                <form id="frm-project">
+                    <div class="form-group">
+                        <div>
+                            <img src="~/Content/images/apple.jpg" id="app" class="photo" width="100" height="100" data-toggle="modal" data-target="#exampleModal" />
+                            <b>Apple juice</b>
+                        </div>
+
+                        <div>
+                            <img src="~/Content/images/5.jpg" id="cho" class="photo" width="100" height="100"  data-toggle="modal" data-target="#exampleModal"/>
+                            <b>Chocolate Icecream</b>
+                        </div>
+                        <div>
+                            <img src="~/Content/images/6.jpg" id="cof" class="photo" width="100" height="100"  data-toggle="modal" data-target="#exampleModal" />
+                            <b>Coffee Icecream</b>
+                        </div>
+                        <div>
+                            <img src="~/Content/images/8.jpg" id="strw" class="photo" width="100" height="100" data-toggle="modal" data-target="#exampleModal" />
+                            <b>Strawberry Icecream</b>
+                        </div>
+                        <div>
+                            <img src="~/Content/images/8.jpg" id="strw" class="photo" width="100" height="100"  data-toggle="modal" data-target="#exampleModal"/>
+                            <b>Strawberry Icecream</b>
+                        </div>
+                        <div>
+                            <img src="~/Content/images/3.jpg" id="wat" class="photo" width="100" height="100"  data-toggle="modal" data-target="#exampleModal" />
+                            <b>Watermelon Icecream</b>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!--table-->
+    <div class="col-sm-6">
+        <div class="container">
+            <div class="list-group-item list-group-item-action active">Add Product</div>
+            <table id="tbl-item" class="table table-dark table-bordered" cellpadding="0" cellspacing="0" align="left" style="width:60%;">
+                <thead>
+                    <tr>
+                        <th>Delete</th>
+                        <th>Item</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="container">
+            <div class="list-group-item list-group-item-action active">Bill</div>
+            <div>
+                <label style="font-size:25px">Total</label>
+                <input type="text" style="color:yellow; background-color:black; font-size:30px;" id="total" ; placeholder="Total" />
+
+            </div>
+            <div style="margin-top:5px; margin-left:60px">
+                <button type="button" class="btn btn-danger" value="Reset" name="reset" id="reset" onclick="reset()">Reset</button>
+            </div>
+
+        </div>
+
+
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Enter the quantity</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <label>Qty</label>
+                <input type="number" id="qty" name="qty" placeholder="Qty" value="1" />
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" onclick="add()">Add</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/jquery-3.4.1.js"></script>
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript">
+
+        var total = 0;
+        var tot = 0;
+        var price = 0;
+        var item = null;
+        var a = ""
+        $("img").on("click", function () {
+            a = $(this).prop('id')
+        });
+        function add() {
+            if (a == "app") {
+                item = "Apple juice";
+                price = 32;
+            }
+            else if (a == "cho") {
+                item = "Chocolate Icecream";
+                price = 32;
+            }
+            else if (a == "cof") {
+                item = "Coffee Icecream";
+                price = 32;
+            }
+            else if (a == "strw") {
+                item = "Chocolate Icecream";
+                price = 32;
+            }
+            else if (a == "strw") {
+                item = "Strawberry Icecream";
+                price = 32;
+            }
+            else if (a == "wat") {
+                item = "Watermelon Icecream";
+                price = 32;
+            }
+            var qty = $("#qty").val();
+            tot = qty * price;
+            var table = "<tr>" +
+                "<td><button type='button' name='record' class='btn btn-warning' onclick='deleterow(this)'>Delete</td>" +
+                "<td>" + item + "</td>" +
+                "<td>" + price + "</td>" +
+                "<td>" + qty + " </td>" +
+                "<td>" + tot + "</td>" +
+                "</tr>";
+            total += Number(tot);
+            $("#total").val(total);
+            $("#tbl-item tbody").append(table);
+
+            $("#exampleModal").modal("hide");
+        
+
+        }
+        function deleterow(e) {
+            total_cost = parseInt($(e).closest('tr').find('td:last').text(), 10);
+            total -= total_cost;
+            $('#total').val(total);
+            $(e).parent().parent().remove();
+        }
+        function reset() {
+            location.reload();
+        }
+    </script>}
+<div class="btn btn-default">
+    <a href="@Url.Action("Index","Home")">Back</a>
+</div>

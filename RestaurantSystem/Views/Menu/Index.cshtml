@@ -1,0 +1,69 @@
+﻿@model IEnumerable<RestaurantSystem.Models.Table_food>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+
+@Html.Raw(FlashBag.showMessage())
+
+
+<p class="btn btn-info">
+    @Html.ActionLink("Create New", "AddNew")
+    <div style="text-align:center;">
+        <h2 style="font-size:30px; font-weight:bold; color: #be412d; display:inline-block;border-bottom:3px solid red;">Food record</h2>
+    </div>
+</p>
+<table class="table table-bordered table-hover">
+    <tr style="background-color:red;">
+        <th>
+            
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.MenuName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Price)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Image)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+    @{int sn = 1;}
+    @foreach (var item in Model)
+    {
+        <tr style="background-color:darkgray;">
+
+            <td>@(sn++)</td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MenuName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @if (item.Image != null)
+                {
+                    <img src="@Url.Content(item.Image)" class="img-circle" height="80" width="80">
+                }
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Status)
+            </td>
+            <td>
+                @*@Html.ActionLink("Edit", "Edit", new { id=item.PrimaryKey  }) |
+                    @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+                <a href="@Url.Action("Edit",new{id=item.MenuId})" class="btn btn-danger">Edit</a>
+                <a href="@Url.Action("Delete",new { id=item.MenuId})" class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+    }
+
+</table>

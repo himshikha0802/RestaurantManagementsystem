@@ -1,0 +1,62 @@
+﻿@using RestaurantSystem.Helper
+
+@{
+    SystemInfoForSession SessionData = SessionHelper.GetSession();
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@*<div class="alert alert-info ">
+        UserName:@(SessionData.UserName)<br />
+        UserID:@(SessionData.UserId)
+    </div>*@
+
+@*<img src="~/Content/image/photo-1533777857889-4be7c70b33f7.jpg" width="96%" height="85%" />*@
+<style>
+
+    body {
+        background-image: url('../../Content/image/background.jpg');
+        height: 100vh;
+        background-position: center;
+        background-size: cover;
+    }
+    .container {
+        display: flex;
+        border: 1px solid;
+        background-color: red;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .box {
+        height: 400px;
+        width: 400px;
+        text-align: center;
+        margin: 20px;
+    }
+
+    p {
+        font-size: 20px;
+        font-weight: bold;
+    }
+
+        p:hover {
+            color: aquamarine;
+        }
+
+    h1 {
+        text-align: center;
+        color: black;
+        font-size: 65px;
+        text-shadow: 2px 2px white;
+    }
+</style>
+<h1 style="">Welcome</h1><h1> @(SessionData.UserName)!</h1>
+
+@*<div class="container">
+
+
+    <section class="box"><img src="~/Content/images/foodm.jpg" height="250" /><h3>FOOD MANAGEMENT</h3><p><a href="@Url.Action("AddNew","Menu")" class="btn btn-info">CLICK HERE</a></p></section>
+    <section class="box"><img src="~/Content/images/bill.jpg" height="250" width="300" /><h3>CUSTOMER BILLING</h3><p><a href="@Url.Action("bill","total")" class="btn btn-info">CLICK HERE</a></p></section>
+    <section class="box">
+        <img src="~/Content/images/kitchen-staff.jpg" height="250" width="300" /><h3>STAFF MANAGEMENT</h3><p><a href="@Url.Action("AddNew","Staff")" class="btn btn-info">CLICK HERE</a></p>
+    </section>
+</div>*@
